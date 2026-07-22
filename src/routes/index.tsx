@@ -64,7 +64,7 @@ function Index() {
     k: K,
     n: N,
     v: CarbonInput[K][N],
-  ) => setData((d) => ({ ...d, [k]: { ...(d[k] as object), [n]: v } as CarbonInput[K] }));
+  ) => setData((d) => ({ ...d, [k]: { ...(d[k] as Record<string, unknown>), [n]: v } }) as CarbonInput);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

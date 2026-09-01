@@ -193,8 +193,25 @@ function Index() {
       {/* BENTO FORM */}
       <main className="mx-auto max-w-6xl px-6 py-16">
         <form onSubmit={onSubmit} className="grid gap-5 md:grid-cols-6">
-          <SectionCard icon={Target} title="Who are we calculating for?" className="md:col-span-6">
-            <div className="grid gap-4 md:grid-cols-3">
+          <SectionCard
+            icon={Target}
+            title={firstName ? `Nice to meet you, ${firstName}` : "Let's start with you"}
+            className="md:col-span-6"
+          >
+            <p className="-mt-2 text-sm text-muted-foreground">
+              No account, no judgement — rough answers are fine. Everything here just helps the plan
+              fit your real life.
+            </p>
+            <div className="grid gap-4 md:grid-cols-4">
+              <div className="grid gap-2">
+                <Label>What should we call you?</Label>
+                <Input
+                  value={data.name}
+                  onChange={(e) => update("name", e.target.value)}
+                  placeholder="e.g. Zahra"
+                  maxLength={60}
+                />
+              </div>
               <div className="grid gap-2">
                 <Label>Profile</Label>
                 <Select
@@ -211,7 +228,7 @@ function Index() {
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label>Region (optional)</Label>
+                <Label>Where do you live?</Label>
                 <Input
                   value={data.region}
                   onChange={(e) => update("region", e.target.value)}
@@ -230,6 +247,108 @@ function Index() {
                   }
                 />
               </div>
+            </div>
+          </SectionCard>
+
+          <SectionCard icon={HeartHandshake} title="What matters to you" className="md:col-span-6">
+            <p className="-mt-2 text-sm text-muted-foreground">
+              This is what makes your plan yours — we'll only suggest things that fit your budget,
+              your energy, and your limits.
+            </p>
+            <div className="grid gap-4 md:grid-cols-4">
+              <div className="grid gap-2">
+                <Label>Why are you here?</Label>
+                <Select
+                  value={data.personal.motivation}
+                  onValueChange={(v) =>
+                    updateNested(
+                      "personal",
+                      "motivation",
+                      v as CarbonInput["personal"]["motivation"],
+                    )
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="save_money">Save money</SelectItem>
+                    <SelectItem value="health">Health & wellbeing</SelectItem>
+                    <SelectItem value="climate">Care about the climate</SelectItem>
+                    <SelectItem value="compliance">Reporting / compliance</SelectItem>
+                    <SelectItem value="curious">Just curious</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label>How much change feels right?</Label>
+                <Select
+                  value={data.personal.effortLevel}
+                  onValueChange={(v) =>
+                    updateNested(
+                      "personal",
+                      "effortLevel",
+                      v as CarbonInput["personal"]["effortLevel"],
+                    )
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="small_steps">Small steps only</SelectItem>
+                    <SelectItem value="moderate">Open to real changes</SelectItem>
+                    <SelectItem value="all_in">All in — challenge me</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label>Budget for changes</Label>
+                <Select
+                  value={data.personal.budget}
+                  onValueChange={(v) =>
+                    updateNested("personal", "budget", v as CarbonInput["personal"]["budget"])
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Free only</SelectItem>
+                    <SelectItem value="low">Under $100</SelectItem>
+                    <SelectItem value="moderate">A few hundred</SelectItem>
+                    <SelectItem value="flexible">Flexible</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label>How should we talk to you?</Label>
+                <Select
+                  value={data.personal.tone}
+                  onValueChange={(v) =>
+                    updateNested("personal", "tone", v as CarbonInput["personal"]["tone"])
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="warm">Warm & encouraging</SelectItem>
+                    <SelectItem value="coach">Direct coach</SelectItem>
+                    <SelectItem value="data">Just the numbers</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>Anything that's off the table?</Label>
+              <Textarea
+                placeholder="e.g. I can't give up my car — no transit where I live. I rent, so no solar or new appliances."
+                value={data.personal.constraints}
+                maxLength={300}
+                onChange={(e) => updateNested("personal", "constraints", e.target.value)}
+                className="min-h-20 resize-none bg-background/30"
+              />
             </div>
           </SectionCard>
 

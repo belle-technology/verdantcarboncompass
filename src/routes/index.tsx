@@ -51,6 +51,7 @@ export const Route = createFileRoute("/")({
 
 const initial: CarbonInput = {
   profile: "individual",
+  name: "",
   region: "",
   transport: {
     carKmPerWeek: 150,
@@ -64,9 +65,18 @@ const initial: CarbonInput = {
     gridCleanliness: "average",
     naturalGasThermsPerMonth: 20,
     householdSize: 2,
+    livingSituation: "rented_apartment",
+    climate: "temperate",
   },
-  diet: { type: "omnivore", foodWasteLevel: "medium" },
+  diet: { type: "omnivore", foodWasteLevel: "medium", cooksAtHome: "sometimes" },
   shopping: { monthlySpendUSD: 200, fastFashionLevel: "medium" },
+  personal: {
+    motivation: "climate",
+    effortLevel: "moderate",
+    budget: "low",
+    constraints: "",
+    tone: "warm",
+  },
   goals: "",
 };
 

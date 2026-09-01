@@ -46,7 +46,13 @@ const InputSchema = z.object({
       tone: z.enum(["warm", "coach", "data"]).optional().default("warm"),
     })
     .optional()
-    .default({}),
+    .default(() => ({
+      motivation: "climate" as const,
+      effortLevel: "moderate" as const,
+      budget: "low" as const,
+      constraints: "",
+      tone: "warm" as const,
+    })),
   goals: z.string().max(500).optional().default(""),
 });
 

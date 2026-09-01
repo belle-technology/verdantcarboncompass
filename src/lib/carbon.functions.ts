@@ -5,6 +5,7 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 
 const InputSchema = z.object({
   profile: z.enum(["individual", "organization"]),
+  name: z.string().max(60).optional().default(""),
   region: z.string().max(100).optional().default(""),
   transport: z.object({
     carKmPerWeek: z.number().min(0).max(10000),
@@ -18,15 +19,34 @@ const InputSchema = z.object({
     gridCleanliness: z.enum(["dirty", "average", "clean"]),
     naturalGasThermsPerMonth: z.number().min(0).max(100000),
     householdSize: z.number().min(1).max(1000),
+    livingSituation: z
+      .enum(["rented_apartment", "owned_apartment", "rented_house", "owned_house", "shared", "office"])
+      .optional()
+      .default("rented_apartment"),
+    climate: z.enum(["cold", "temperate", "hot", "tropical"]).optional().default("temperate"),
   }),
   diet: z.object({
     type: z.enum(["vegan", "vegetarian", "pescatarian", "omnivore", "heavy_meat"]),
     foodWasteLevel: z.enum(["low", "medium", "high"]),
+    cooksAtHome: z.enum(["rarely", "sometimes", "mostly"]).optional().default("sometimes"),
   }),
   shopping: z.object({
     monthlySpendUSD: z.number().min(0).max(1000000),
     fastFashionLevel: z.enum(["low", "medium", "high"]),
   }),
+  personal: z
+    .object({
+      motivation: z
+        .enum(["save_money", "health", "climate", "compliance", "curious"])
+        .optional()
+        .default("climate"),
+      effortLevel: z.enum(["small_steps", "moderate", "all_in"]).optional().default("moderate"),
+      budget: z.enum(["none", "low", "moderate", "flexible"]).optional().default("low"),
+      constraints: z.string().max(300).optional().default(""),
+      tone: z.enum(["warm", "coach", "data"]).optional().default("warm"),
+    })
+    .optional()
+    .default({}),
   goals: z.string().max(500).optional().default(""),
 });
 

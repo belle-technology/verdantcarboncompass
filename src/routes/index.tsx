@@ -26,6 +26,7 @@ import {
   Salad,
   ShoppingBag,
   Target,
+  HeartHandshake,
 } from "lucide-react";
 
 const CarbonScene = lazy(() => import("@/components/CarbonScene"));
@@ -115,6 +116,7 @@ function SectionCard({
 function Index() {
   const analyze = useServerFn(analyzeCarbon);
   const [data, setData] = useState<CarbonInput>(initial);
+  const firstName = (data.name ?? "").trim().split(" ")[0] ?? "";
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Awaited<ReturnType<typeof analyzeCarbon>> | null>(null);
   const [error, setError] = useState<string | null>(null);

@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      carbon_entries: {
+        Row: {
+          created_at: string
+          diet_kg: number
+          home_kg: number
+          id: string
+          inputs: Json
+          recommendations: string | null
+          shopping_kg: number
+          total_kg: number
+          transport_kg: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          diet_kg?: number
+          home_kg?: number
+          id?: string
+          inputs?: Json
+          recommendations?: string | null
+          shopping_kg?: number
+          total_kg: number
+          transport_kg?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          diet_kg?: number
+          home_kg?: number
+          id?: string
+          inputs?: Json
+          recommendations?: string | null
+          shopping_kg?: number
+          total_kg?: number
+          transport_kg?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          profile_type: string
+          region: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+          profile_type?: string
+          region?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          profile_type?: string
+          region?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

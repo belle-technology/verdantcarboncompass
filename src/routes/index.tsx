@@ -118,6 +118,9 @@ function SectionCard({
 
 function Index() {
   const analyze = useServerFn(analyzeCarbon);
+  const persist = useServerFn(saveEntry);
+  const { user } = useAuth();
+  const [saved, setSaved] = useState(false);
   const [data, setData] = useState<CarbonInput>(initial);
   const firstName = (data.name ?? "").trim().split(" ")[0] ?? "";
   const [loading, setLoading] = useState(false);

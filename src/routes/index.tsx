@@ -143,9 +143,28 @@ function Index() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setSaved(false);
     try {
       const r = await analyze({ data });
       setResult(r);
+      if (user) {
+        try {
+          await persist({
+            data: {
+              total_kg: r.breakdown.total,
+              transport_kg: r.breakdown.transport,
+              home_kg: r.breakdown.home,
+              diet_kg: r.breakdown.diet,
+              shopping_kg: r.breakdown.shopping,
+              inputs: data,
+              recommendations: r.recommendations,
+            },
+          });
+          setSaved(true);
+        } catch {
+          /* saving is best-effort */
+        }
+      }
       setTimeout(
         () => document.getElementById("result")?.scrollIntoView({ behavior: "smooth" }),
         100,

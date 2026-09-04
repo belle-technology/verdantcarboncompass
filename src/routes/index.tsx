@@ -605,7 +605,27 @@ function Index() {
         )}
 
         {result && (
-          <section id="result" className="mt-20 grid gap-5 md:grid-cols-6">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-sm">
+            {saved ? (
+              <span className="rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-primary">
+                Saved to your history —{" "}
+                <Link to="/history" className="underline">
+                  see your trend
+                </Link>
+              </span>
+            ) : (
+              <span className="rounded-full border border-border bg-card/60 px-4 py-2 text-muted-foreground">
+                <Link to="/auth" className="text-primary underline">
+                  Create a free account
+                </Link>{" "}
+                to save this result and track your progress over time.
+              </span>
+            )}
+          </div>
+        )}
+
+        {result && (
+          <section id="result" className="mt-10 grid gap-5 md:grid-cols-6">
             <Card
               className="glass grain rise-in relative overflow-hidden md:col-span-6"
               style={{ boxShadow: "var(--shadow-soft)" }}
